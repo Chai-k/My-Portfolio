@@ -23,13 +23,13 @@ const Content = () => (
                         </button>
                     </li>
                     <li>
-                        <button onClick={() => document.getElementById("experience").scrollIntoView({ behavior: "smooth" })}>
-                            Experience
+                        <button onClick={() => document.getElementById("skills").scrollIntoView({ behavior: "smooth" })}>
+                            Skills
                         </button>
                     </li>
                     <li>
-                        <button onClick={() => document.getElementById("skills").scrollIntoView({ behavior: "smooth" })}>
-                            Skills
+                        <button onClick={() => document.getElementById("experience").scrollIntoView({ behavior: "smooth" })}>
+                            Experience
                         </button>
                     </li>
                     <li>
@@ -51,8 +51,8 @@ const Content = () => (
         <div className="main-content">
             <Home />
             <About />
-            <Experience />
             <Skills />
+            <Experience />
             <Awards />
             <Contact />
         </div>

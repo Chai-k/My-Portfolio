@@ -1,18 +1,57 @@
 import profileImg from "../assets/profile.jpeg";
 
+// 🔹 Reusable components
+
+const Section = ({ id, title, children, className = "section" }) => (
+  <section id={id} className={className}>
+    <h2>{title}</h2>
+    {children}
+  </section>
+);
+
+const InfoBox = ({ icon, text }) => (
+  <div className="info-box">
+    <h4>
+      <i className={icon}></i>
+      <span>{text}</span>
+    </h4>
+  </div>
+);
+
+const ContactCard = ({ href, icon, label, text, newTab = false }) => (
+  <a
+    href={href}
+    className="contact-card"
+    title={label}
+    target={newTab ? "_blank" : "_self"}
+    rel={newTab ? "noreferrer" : undefined}
+  >
+    <div className="contact-label">
+      <i className={icon}></i>
+      <span>{label}</span>
+    </div>
+    <p>{text}</p>
+  </a>
+);
+
+// 🔹 Sections
+
 export const Home = () => (
-  <section id="home" className="section home-section">
+  <section id="home" className="home-section">
     <div className="home-container">
       <div className="profile-image">
         <img src={profileImg} alt="My Profile" />
       </div>
       <div className="intro-text">
         <h2>K.Chaitra</h2>
-        <h4>Software Developer</h4>
-        <p>Full Stack Developer focused on <strong>Python</strong> and <strong>React.js</strong></p>
+        <h3>Software Developer</h3>
+        <p>
+          Full Stack Developer focused on <strong>Python</strong> and{" "}
+          <strong>React.js</strong>
+        </p>
         <div className="info-row">
-          <div className="info-box"><h4>📞 +91 98765 43210</h4></div>
-          <div className="info-box"><h4>💼  2 Years</h4></div>
+          <InfoBox icon="ri-map-pin-line" text="Bengaluru, Karnataka" />
+          <InfoBox icon="ri-briefcase-line" text="2 Years Experience" />
         </div>
       </div>
     </div>
@@ -20,78 +59,166 @@ export const Home = () => (
 );
 
 export const About = () => (
-  <section id="about" className="section">
-    <h2>About Me</h2>
-    <p>
-      I am a passionate Full-Stack Developer with 2 years of experience designing,
-      developing, and optimizing scalable web applications. I specialize in
-      <strong> React.js, JavaScript, Python (Flask, FastAPI)</strong> and databases like
-      <strong> PostgreSQL</strong>. I also integrate monitoring tools like
-      <strong> Sentry, Segment, Mixpanel</strong>. My focus is on performance,
-      usability, and scalability with clean, maintainable code.
-    </p>
-  </section>
-);
-
-export const Experience = () => (
-  <section id="experience" className="section">
-    <h2>Experience</h2>
+  <Section id="about" title="About Me">
     <ul>
       <li>
-        <strong>Software Engineer</strong> - Euphoric Thought Technologies (Jul 2024 – Present)<br />
-        <em>Phyllo (Full Stack Developer)</em><br />
-        Built reusable ReactJS components, FastAPI APIs, Segment & Mixpanel integrations, optimized frontend performance.
+        I am a passionate <span className="highlight-role">Full Stack Developer</span> with 2 years of experience
+        designing, developing, and optimizing scalable web applications.
       </li>
       <li>
-        <strong>Backend Developer</strong> - Euphoric Thought Technologies (Sept 2023 – Jun 2024)<br />
-        <em>Chatbot Project</em><br />
-        Real-time chatbot backend with Flask, PostgreSQL, WebSockets, AWS S3, Dockerized services.
+        I specialize in <strong>React.js, JavaScript, Python (Flask, FastAPI)</strong> and databases like{" "}
+        <strong>PostgreSQL</strong>.
+      </li>
+      <li>
+        I also integrate monitoring tools like <strong>Sentry, Segment, Mixpanel</strong>. My focus is on performance,
+        usability, and scalability with clean, maintainable code.
       </li>
     </ul>
-  </section>
+  </Section>
 );
 
-export const Skills = () => (
-  <section id="skills" className="section">
-    <h2>Skills</h2>
-    <ul>
-      <li><strong>Frontend:</strong> ReactJS, HTML, CSS, JavaScript</li>
-      <li><strong>Backend:</strong> Python, Flask, FastAPI, REST APIs</li>
-      <li><strong>Database:</strong> PostgreSQL, MySQL</li>
-      <li><strong>Other:</strong> Git, Docker, Sentry, Segment, Mixpanel, AWS S3</li>
-    </ul>
-  </section>
-);
+export const Experience = () => {
+  const experiences = [
+    {
+      role: "Software Engineer",
+      company: "Euphoric Thought Technologies",
+      period: "Sept 2023 – Present",
+      highlights: [
+        "Built and deployed end-to-end solutions using ReactJS, FastAPI, and PostgreSQL.",
+        "Crafted modular, reusable UI components to improve frontend scalability.",
+        "Engineered backend REST APIs with secure authentication and validation.",
+        "Integrated Sentry for logging and real-time issue tracking.",
+        "Collaborated with QA and DevOps to improve test coverage.",
+        "Participated in sprint planning and cross-team collaboration for timely feature delivery.",
+        "Refactored legacy logic to reduce tech debt and improve API efficiency.",
+        "Monitored and resolved production issues by configuring Sentry for real-time error logging."
+      ]
+    },
+  ];
+
+  return (
+    <Section id="experience" title="Work Experience">
+      <div className="experience-list">
+        {experiences.map((exp, index) => (
+          <div key={index} className="experience-card">
+            <div className="experience-header">
+              <h3 className="role-name">{exp.role} </h3>
+              <h4 className="company-name">{exp.company}</h4>
+              <p className="period">{exp.period}</p>
+            </div>
+            <div className="experience-highlights">
+              {exp.highlights.map((point, i) => (
+                <div key={i} className="experience-highlight">{point}</div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
+};
+
+
+export const Skills = () => {
+  const skillCategories = [
+    {
+      title: "Languages & Scripting",
+      icon: "ri-code-line",
+      skills: [
+        "JavaScript", "TypeScript", "Python", "SQL"
+      ]
+    },
+    {
+      title: "Frontend",
+      icon: "ri-layout-line",
+      skills: [
+        "React", "Vite",
+        "Tailwind CSS", "HTML5"
+      ]
+    },
+    {
+      title: "Backend",
+      icon: "ri-layout-line",
+      skills: [
+        "FastAPI", "Flask", "REST APIs", "OpenAI"
+      ]
+    },
+    {
+      title: "Database",
+      icon: "ri-database-line",
+      skills: [
+        "PostgreSQL", "MySQL"
+      ]
+    },
+    {
+      title: "Tools",
+      icon: "ri-tools-line",
+      skills: [
+        "Git", "GitHub", "Docker", "Sentry", "Mixpanel"
+      ]
+    }
+  ];
+
+  return (
+    <Section id="skills" title="Technical Skills">
+      <div className="skills-grid">
+        {skillCategories.map((cat, index) => (
+          <div key={index} className="skill-card">
+            <h3>
+              <i className={cat.icon}></i> {cat.title}
+            </h3>
+            <div className="skill-tags">
+              {cat.skills.map((skill, i) => (
+                <span key={i} className="skill-tag">{skill}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
+};
+
 
 export const Awards = () => (
-  <section id="awards" className="section">
-    <h2>Awards</h2>
+  <Section id="awards" title="Awards">
     <ul>
-      <li><i className="ri-award-line"></i> <strong>Spot Award</strong> — Outstanding performance and impactful delivery.</li>
+      <li>
+        <i className="ri-award-line"></i> <strong>Spot Award</strong> — Outstanding performance and impactful delivery.
+      </li>
     </ul>
-  </section>
+  </Section>
 );
 
 export const Contact = () => (
-  <section id="contact" className="section contact-section">
-    <h2>Get in Touch</h2>
+  <Section id="contact" title="Get in Touch" className="section contact-section">
     <div className="contact-grid">
-      <a href="mailto:k.chaitra@euphoricthought.com" className="contact-card" title="Email">
-        <div className="contact-label"><i className="ri-mail-line"></i><span>Email</span></div>
-        <p>k.chaitra@euphoricthought.com</p>
-      </a>
-      <a href="tel:+919876543210" className="contact-card" title="Phone">
-        <div className="contact-label"><i className="ri-phone-line"></i><span>Phone</span></div>
-        <p>+91 98765 43210</p>
-      </a>
-      <a href="https://www.linkedin.com/in/kchaitra" target="_blank" rel="noreferrer" className="contact-card" title="LinkedIn">
-        <div className="contact-label"><i className="ri-linkedin-line"></i><span>LinkedIn</span></div>
-        <p>Connect on LinkedIn</p>
-      </a>
-      <a href="https://github.com/kchaitra" target="_blank" rel="noreferrer" className="contact-card" title="GitHub">
-        <div className="contact-label"><i className="ri-github-line"></i><span>GitHub</span></div>
-        <p>Connect on GitHub</p>
-      </a>
+      <ContactCard
+        href="mailto:k.chaitra@euphoricthought.com"
+        icon="ri-mail-line"
+        label="Email"
+        text="k.chaitra@euphoricthought.com"
+      />
+      <ContactCard
+        href="tel:+919876543210"
+        icon="ri-phone-line"
+        label="Phone"
+        text="+91 98765 43210"
+      />
+      <ContactCard
+        href="https://www.linkedin.com/in/kchaitra"
+        icon="ri-linkedin-line"
+        label="LinkedIn"
+        text="Connect on LinkedIn"
+        newTab
+      />
+      <ContactCard
+        href="https://github.com/kchaitra"
+        icon="ri-github-line"
+        label="GitHub"
+        text="Connect on GitHub"
+        newTab
+      />
     </div>
-  </section>
+  </Section>
 );
